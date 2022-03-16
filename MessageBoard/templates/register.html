@@ -1,0 +1,15 @@
+{% extends "default.html" %}
+
+{% block title %}
+Registration
+{% endblock title %}
+
+{% block content %}
+<h2> Форма регистрации </h2>
+<form method="post">
+{% csrf_token %}
+{{ register_form }}
+<input type="submit" value="Зарегистрироваться">
+</form>
+<p>Если вы уже зарегистрированы: <button><a href="{% url 'login' %}"><u>Войти</u></a></button></p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+{% block title %}
+Confirmation
+{% endblock title %}
+
+{% block content %}
+<h2>На почтовый адрес, указанный при регистрации, был выслан код. Введите его в течение 5 минут для подтверждения регистрации:</h2>
+
+<form method="post">
+{% csrf_token %}
+ <input type="text" name="code">
+ <input type="submit" value="Отправить">
+</form>
+
+{% endblock content %}

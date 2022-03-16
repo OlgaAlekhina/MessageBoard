@@ -1,0 +1,14 @@
+{% extends 'default.html' %}
+
+{% block title %} Удалить комментарий {% endblock title %}
+
+{% block content %}
+<h2>Вы действительно хотите удалить этот комментарий?</h2>
+
+<p>{{ reply.reply_text }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить"></form>
+</p>
+{% endblock content %}

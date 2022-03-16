@@ -1,0 +1,12 @@
+{% extends 'default.html' %}
+
+{% block title %} Спасибо за комментарий! {% endblock title %}
+
+{% block content %}
+<h3>Спасибо за комментарий! Он будет опубликован на форуме после проверки автором объявления.</h3>
+
+<button> <a href="{% url 'main' %}">Перейти на форум</a> </button>
+
+<button><a href="{% url 'messages' %}"><u>Мои сообщения</u></a></button>
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends 'default.html' %}
+
+{% block title %}
+Post details
+{% endblock title %}
+
+{% block content %}
+<h2>{{ post.post_title }}</h2>
+
+{{ post.post_text }}
+
+<p>Автор: {{ post.post_author }}</p>
+<p>Опубликовано: {{ post.post_time|date:'d-M-Y H:i' }}</p>
+<p>В категории: {{ post.post_category }}
+
+<p><button> <a href="{% url 'post_edit' post.id %}">Редактировать</a> </button></p>
+
+<p><button> <a href="{% url 'main' %}">Перейти на форум</a> </button></p>
+
+<p><button><a href="{% url 'messages' %}"><u>Мои сообщения</u></a></button></p>
+
+{% if user.is_authenticated %}
+        <button> <a href="{% url 'logout' %}">Выйти</a> </button>
+    {% else %}
+        <button> <a href="{% url 'login' %}">Войти</a> </button>
+    {% endif %}
+
+<h3>Комментарии ({{ replies|length }}):</h3>
+
+ <hr>
+    {% if replies %}
+
+        {% for reply in replies %}
+
+            <p>{{ reply.reply_text }}</p>
+            <p>Автор: {{ reply.reply_author }}</p>
+            <p>Опубликовано: {{ reply.reply_time|date:'d-M-Y H:i' }}</p>
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+        <h2>Комментариев нет!</h2>
+    {% endif %}
+
+<button> <a href="{% url 'reply' post.id %}">Добавить комментарий</a> </button>
+
+{% endblock content %}

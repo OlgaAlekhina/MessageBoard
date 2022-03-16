@@ -1,0 +1,13 @@
+{% extends 'default.html' %}
+
+{% block title %} Редактировать объявление {% endblock title %}
+
+{% block content %}
+<h3>Редактировать объявление:</h3>
+{{ form.media }}
+<form  method="post" action='' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Редактировать объявление">
+</form>
+{% endblock content %}

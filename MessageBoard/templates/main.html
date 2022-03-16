@@ -1,0 +1,63 @@
+{% extends 'default.html' %}
+
+{% block title %}
+Forum
+{% endblock title %}
+ 
+{% block content %}
+
+<h1>Все объявления</h1>
+
+ <hr>
+    {% if posts %}
+        
+        {% for post in posts %}
+            
+            <h3><a href="{% url 'post_detail' post.id %}">{{ post.post_title }}</a></h3>
+			<p>{{ post.post_text|truncatewords:15 }}</p>
+			<p>Автор: {{ post.post_author }}</p>
+			<p>Опубликовано: {{ post.post_time|date:'d-M-Y H:i' }}</p>
+			<p>В категории: <a href="{% url 'post-category' post.post_category.id %}">{{ post.post_category }}</p></a>
+            <p>Количество комментариев: {{ post.comments_number }}</p>
+            <button><a href="{% url 'reply' post.id %}"><u>Добавить комментарий</u></a></button>
+            <hr>
+                
+        {% endfor %}
+        
+    {% else %}
+        <h2>Объявлений нет!</h2>
+    {% endif %}
+
+<button><a href="{% url 'post_create' %}"><u>Добавить объявление</u></a></button>
+
+<button><a href="{% url 'messages' %}"><u>Мои сообщения</u></a></button>
+
+{% if user.is_authenticated %}
+        <button> <a href="{% url 'logout' %}">Выйти</a> </button>
+    {% else %}
+        <button> <a href="{% url 'login' %}">Войти</a> </button>
+    {% endif %}
+<p>
+{% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">>>></a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+{% endif %}
+</p>
+{% endblock content %}

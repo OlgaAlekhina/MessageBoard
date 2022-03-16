@@ -1,0 +1,15 @@
+{% extends 'default.html' %}
+
+{% block title %}
+New reply
+{% endblock title %}
+
+{% block content %}
+
+<h3>Здравствуйте! На ваше объявление <i>"{{ reply.reply_post }}"</i> получено новое сообщение.</h3>
+
+<p>Текст сообщения: <i>"{{ reply.reply_text }}"</i></p>
+
+<p>Откликнуться можно <a href= "http://127.0.0.1:8000/main/messages">здесь</a>.</p>
+
+{% endblock content %}
