@@ -72,17 +72,27 @@ class MessagesView(LoginRequiredMixin, ListView):
     model = Reply
     context_object_name = 'messages'
     template_name = 'messages.html'
-    login_url = '/accounts/login/'
+    paginate_by = 10
+
+    def get_filter(self):
+        user = self.request.user
+        queryset = Reply.objects.filter(reply_post__post_author=user).order_by('-reply_time')
+        return MessageFilter(self.request.GET, request=self.request, queryset=queryset)
 
     def get_queryset(self):
-        user = self.request.user
-        return Reply.objects.filter(reply_post__post_author=user).order_by('-reply_time')
+        qs = self.get_filter().qs
+        return qs
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filter'] = MessageFilter(self.request.GET, request=self.request, queryset=self.get_queryset())
+        filter = self.get_filter()
+        context['filter'] = filter
+        filter_params = ""
+        for f_name in [str(k) for k in filter.filters]:
+            if f_name in filter.data:
+                filter_params += f"&{f_name}={filter.data[f_name]}"
+        context['filter_params'] = filter_params
         return context
-
 
 class CategoryView(ListView):
     context_object_name = 'category_posts'
