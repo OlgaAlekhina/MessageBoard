@@ -13,8 +13,9 @@ Post details
 <p>Опубликовано: {{ post.post_time|date:'d-M-Y H:i' }}</p>
 <p>В категории: {{ post.post_category }}
 
+{% if is_author %}
 <p><button> <a href="{% url 'post_edit' post.id %}">Редактировать</a> </button></p>
-
+{% endif %}
 <p><button> <a href="{% url 'main' %}">Перейти на форум</a> </button></p>
 
 <p><button><a href="{% url 'messages' %}"><u>Мои сообщения</u></a></button></p>

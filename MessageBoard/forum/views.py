@@ -21,8 +21,9 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(PostDetail, self).get_context_data(**kwargs)
         context['replies'] = Reply.objects.filter(reply_post=self.kwargs["pk"]).filter(reply_approved=True)
+        context['is_author'] = Post.objects.filter(pk=self.kwargs["pk"], post_author=self.request.user).exists()
         return context
 
 
@@ -72,7 +73,7 @@ class MessagesView(LoginRequiredMixin, ListView):
     model = Reply
     context_object_name = 'messages'
     template_name = 'messages.html'
-    paginate_by = 10
+    paginate_by = 3
 
     def get_filter(self):
         user = self.request.user
