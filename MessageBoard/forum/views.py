@@ -23,7 +23,8 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
         context['replies'] = Reply.objects.filter(reply_post=self.kwargs["pk"]).filter(reply_approved=True)
-        context['is_author'] = Post.objects.filter(pk=self.kwargs["pk"], post_author=self.request.user).exists()
+        if self.request.user in User.objects.all():
+            context['is_author'] = Post.objects.filter(pk=self.kwargs["pk"], post_author=self.request.user).exists()
         return context
 
 
