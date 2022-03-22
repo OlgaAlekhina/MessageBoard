@@ -7,7 +7,7 @@ Post details
 {% block content %}
 <h2>{{ post.post_title }}</h2>
 
-{{ post.post_text }}
+{{ post.post_text|safe }}
 
 <p>Автор: {{ post.post_author }}</p>
 <p>Опубликовано: {{ post.post_time|date:'d-M-Y H:i' }}</p>

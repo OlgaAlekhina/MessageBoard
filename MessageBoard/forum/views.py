@@ -5,6 +5,7 @@ from .filters import MessageFilter
 from .forms import PostForm, ReplyForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 
 class PostList(ListView):
@@ -23,7 +24,8 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
         context['replies'] = Reply.objects.filter(reply_post=self.kwargs["pk"]).filter(reply_approved=True)
-        context['is_author'] = Post.objects.filter(pk=self.kwargs["pk"], post_author=self.request.user).exists()
+        if self.request.user in User.objects.all():
+            context['is_author'] = Post.objects.filter(pk=self.kwargs["pk"], post_author=self.request.user).exists()
         return context
 
 
@@ -73,7 +75,7 @@ class MessagesView(LoginRequiredMixin, ListView):
     model = Reply
     context_object_name = 'messages'
     template_name = 'messages.html'
-    paginate_by = 3
+    paginate_by = 10
 
     def get_filter(self):
         user = self.request.user

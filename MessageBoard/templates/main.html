@@ -14,7 +14,7 @@ Forum
         {% for post in posts %}
             
             <h3><a href="{% url 'post_detail' post.id %}">{{ post.post_title }}</a></h3>
-			<p>{{ post.post_text|truncatewords:15 }}</p>
+			<p>{{ post.post_text|truncatewords:15|safe }}</p>
 			<p>Автор: {{ post.post_author }}</p>
 			<p>Опубликовано: {{ post.post_time|date:'d-M-Y H:i' }}</p>
 			<p>В категории: <a href="{% url 'post-category' post.post_category.id %}">{{ post.post_category }}</p></a>
