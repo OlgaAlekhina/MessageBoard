@@ -17,7 +17,7 @@ Forum
 			<p>{{ post.post_text|truncatewords:15|safe }}</p>
 			<p>Автор: {{ post.post_author }}</p>
 			<p>Опубликовано: {{ post.post_time|date:'d-M-Y H:i' }}</p>
-			<p>В категории: <a href="{% url 'post-category' post.post_category.id %}">{{ post.post_category }}</p></a>
+			<p>В категории: <a href="{% url 'post-category' post.post_category.id %}">{{ post.post_category }}</a></p>
             <p>Количество комментариев: {{ post.comments_number }}</p>
             <button><a href="{% url 'reply' post.id %}"><u>Добавить комментарий</u></a></button>
             <hr>
