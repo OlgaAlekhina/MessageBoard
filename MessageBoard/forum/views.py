@@ -5,6 +5,7 @@ from .filters import MessageFilter
 from .forms import PostForm, ReplyForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 
 class PostList(ListView):
