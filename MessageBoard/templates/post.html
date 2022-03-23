@@ -11,7 +11,7 @@ Post details
 
 <p>Автор: {{ post.post_author }}</p>
 <p>Опубликовано: {{ post.post_time|date:'d-M-Y H:i' }}</p>
-<p>В категории: {{ post.post_category }}
+<p>В категории: <a href="{% url 'post-category' post.post_category.id %}">{{ post.post_category }}</a></p>
 
 {% if is_author %}
 <p><button> <a href="{% url 'post_edit' post.id %}">Редактировать</a> </button></p>

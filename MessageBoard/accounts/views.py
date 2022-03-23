@@ -15,8 +15,8 @@ def register_request(request):
             user.is_active = False
             user.save()
             code = OneTimeCode.objects.create(code=randint(1000, 9999), user=user)
-            subject = f"Ваш код подтверждения: {code.code}"
-            message = f"Ваш код подтверждения: {code.code}"
+            subject = f"Ваш код подтверждения для регистрации на форуме гиков: {code.code}"
+            message = f"Ваш код подтверждения для регистрации на форуме гиков: {code.code}"
             user.email_user(subject, message)
             user_id = user.id
             return redirect("confirmation", user_id=user_id)
