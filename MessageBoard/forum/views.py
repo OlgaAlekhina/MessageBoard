@@ -48,6 +48,12 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         return Post.objects.get(pk=id)
 
 
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'post_delete_form.html'
+    queryset = Post.objects.all()
+    success_url = '/main/'
+
+
 class ReplyCreateView(LoginRequiredMixin, CreateView):
     template_name = 'reply_create_form.html'
     form_class = ReplyForm

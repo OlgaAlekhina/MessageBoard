@@ -15,6 +15,7 @@ Post details
 
 {% if is_author %}
 <p><button> <a href="{% url 'post_edit' post.id %}">Редактировать</a> </button></p>
+<p><button><a href="{% url 'post_delete' post.id %}"><u> Удалить </u></a></button></p>
 {% endif %}
 <p><button> <a href="{% url 'main' %}">Перейти на форум</a> </button></p>
 
